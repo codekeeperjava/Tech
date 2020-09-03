@@ -1,0 +1,1 @@
+1. [(1) Vim 的哲学（四） - 太极客（Very Geek） - SegmentFault 思否](https://segmentfault.com/a/1190000000458565)
