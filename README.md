@@ -1,8 +1,10 @@
 # Welcome !!!
 
-请在上方 **Code 区域** 浏览（如使用手机，点击上方 *View code* ）。目录中内容仅部分更新，用于规划及后期使用！
+请在上方 **Code 区域** 浏览（如使用手机，点击上方 *View code* ）。
 
 ## 目录
+
+注意：仅部分更新 !!
 
 - [0. OS](https://github.com/codekeeperjava/Tech/tree/master/0.%20OS)
 - [1. Java](https://github.com/codekeeperjava/Tech/tree/master/1.%20Java)
