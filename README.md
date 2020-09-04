@@ -1,6 +1,6 @@
 # Welcome !!!
 
-请直接在 **Code** 区查看（如果使用手机，点击上方 *View code* 查看）。目录中内容仅部分更新，仅做规划！
+请在上方 **Code 区域** 浏览（如使用手机，点击上方 *View code* ）。目录中内容仅部分更新，用于规划及后期使用！
 
 ## 目录
 
@@ -15,4 +15,4 @@
 
 ## 评论
 
-Github 仓库不支持评论，如果文章中有错误或其他问题请提 [Issue](https://github.com/codekeeperjava/Tech/issues)
+Github 仓库不支持评论，如文章中有错误或其他问题请提 [issue](https://github.com/codekeeperjava/Tech/issues) 并写明文章页地址。
