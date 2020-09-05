@@ -2,9 +2,9 @@
 
 请在上方 **Code 区域** 浏览（如使用手机，点击上方 *View code* ）。
 
-## 目录
+## 分类
 
-注意：仅部分更新 !!
+注意：仅部分已更新 !!
 
 - [0. OS](https://github.com/codekeeperjava/Tech/tree/master/0.%20OS)
 - [1. Java](https://github.com/codekeeperjava/Tech/tree/master/1.%20Java)
@@ -15,6 +15,12 @@
 - [6. Others](https://github.com/codekeeperjava/Tech/tree/master/6.%20Others)
 - [7. 面试题](https://github.com/codekeeperjava/Tech/tree/master/面试题)
 
+## 列表
+
+请点击[这里](https://github.com/codekeeperjava/Tech/find/master)
+
 ## 评论
 
-Github 仓库不支持评论，如文章中有错误或其他问题请提 [issue](https://github.com/codekeeperjava/Tech/issues) 并写明文章页地址。
+请点击[这里](https://github.com/codekeeperjava/Tech/issues)
+
+注意：Github 仓库不支持评论，如文章中有错误或其他问题请提 [issue](https://github.com/codekeeperjava/Tech/issues) 并写明文章页地址。
