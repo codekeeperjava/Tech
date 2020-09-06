@@ -13,7 +13,7 @@
 - [4. Network](https://github.com/codekeeperjava/Tech/tree/master/4.%20Network)
 - [5. Codes](https://github.com/codekeeperjava/Tech/tree/master/5.%20Codes)
 - [6. Others](https://github.com/codekeeperjava/Tech/tree/master/6.%20Others)
-- [7. 面试题](https://github.com/codekeeperjava/Tech/tree/master/面试题)
+- [7. 面试题](https://github.com/codekeeperjava/Tech/tree/master/7.%20面试题)
 
 ## 列表
 
