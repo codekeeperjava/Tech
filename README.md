@@ -19,6 +19,8 @@
 
 请点击[这里](https://github.com/codekeeperjava/Tech/find/master)
 
+注意：因为项目中其他格式文件的存在，为避免混乱可在进入后搜索 “md” 进行过滤。
+
 ## 评论
 
 请点击[这里](https://github.com/codekeeperjava/Tech/issues)
