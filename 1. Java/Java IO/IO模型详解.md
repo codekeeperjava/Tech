@@ -30,10 +30,10 @@ public class Demo {
 ```
 
 1. 先跑起来再说，先新建一个 `Demo.java` 源文件。
-2. 然后运行`mkdir javatest`创建一个文件夹，方便我们将所有线程的跟踪结果输出到一起方便查看。
-3. 执行`strace -ff -o javatest/demo java Demo`
-4. 此时 `javatest` 件夹中就出现了以 `demo.pid` 命名的若干文件。
-5. 我们找到最大的一个，打开后搜索 `hello, world` ，就能看到它有一个系统调用 `write(1, "hello, world", 12)            = 12`，即系统调用了 `write()` ，其中第一个参数 1 表示标准输出流，即通过系统调用将 "hello,world" 输出到标准输出流中。
+1. 然后运行`mkdir javatest`创建一个文件夹，方便我们将所有线程的跟踪结果输出到一起方便查看。
+1. 执行`strace -ff -o javatest/demo java Demo`
+1. 此时 `javatest` 件夹中就出现了以 `demo.pid` 命名的若干文件。
+1. 我们找到最大的一个，打开后搜索 `hello, world` ，就能看到它有一个系统调用 `write(1, "hello, world", 12)            = 12`，即系统调用了 `write()` ，其中第一个参数 1 表示标准输出流，即通过系统调用将 "hello,world" 输出到标准输出流中。
 
 到这里，我们就可以使用 strace 分析一个程序的系统调用了。
 
@@ -148,7 +148,7 @@ public class Main2 {
 上面这种方式是一种很常见的使用 BIO 与客户端通信，它有非常明显的**缺点** ：
 
 1. 多线程时，CPU 的线程切换会导致上下文切换，带来不小的性能开销。
-2. 每个线程本身需要占用资源。每个客户端接入需要新建线程，每个线程本身就需要占用不小内存资源。
+1. 每个线程本身需要占用资源。每个客户端接入需要新建线程，每个线程本身就需要占用不小内存资源。
 
 ## NIO（非阻塞 IO)
 
@@ -179,7 +179,7 @@ NIO 解决了 BIO 的两个缺点：它只用一个线程轮询即可，不需�
 总结一下，NIO 解决了 BIO 的 2 个明显的缺点，但它自身依然存在不足：
 
 1. 当客户端连接多时，每次轮询需要多次系统调用，会在用户态和内核态之间切换，带来不小的消耗。
-2. 每 2 次轮询的时间间隔不好掌握，时间短容易白忙活；时间长会造成高延迟。
+1. 每 2 次轮询的时间间隔不好掌握，时间短容易白忙活；时间长会造成高延迟。
 
 ## 多路复用
 
@@ -213,30 +213,30 @@ int select(int maxfd, fd_set *readfds, fd_set *writefds,
 使用 select 的一般步骤：
 
 1. 将 fds 各位全部清空
-2. 将 fds 需要监听的文件描述符对应位置为 1
-3. 调用 select 函数监听置为 1 的文件描述符是否有数据到来
-4. 当状态为 1 的文件描述符有数据到来时，此时你的状态仍然为 1，但是其他状态为 1 的文件描述如果没有数据到来，那么此时会将这些文件描述符置为 0
-5. 当 select 函数返回后，只能通过遍历的方式获取准备就绪的文件描述符，然后对该文件描述符做后续操作。
+1. 将 fds 需要监听的文件描述符对应位置为 1
+1. 调用 select 函数监听置为 1 的文件描述符是否有数据到来
+1. 当状态为 1 的文件描述符有数据到来时，此时你的状态仍然为 1，但是其他状态为 1 的文件描述如果没有数据到来，那么此时会将这些文件描述符置为 0
+1. 当 select 函数返回后，只能通过遍历的方式获取准备就绪的文件描述符，然后对该文件描述符做后续操作。
 
 **注意** ：我们只可以通过返回结果获取到有数据到来的文件描述符，但不可以获取到数据，如果需要获取数据，还需要通过该文件描述符去读取。
 
 select 底层一般的执行步骤：
 
 1. 从用户空间拷贝 fd_set 到内核空间
-2. 先把所有 fd_set 扫一遍
-3. 如果发现有可用的 fd，则调到 5
-4. 如果没有，当前线程去 Sleep xx 秒 (schedle timeout 机制）
-5. xx 秒后自己醒来，或者状态变化的 fd 唤醒自己，调到 2 重新执行
-6. 结束循环，返回（可能因为 timeout 超时返回）
+1. 先把所有 fd_set 扫一遍
+1. 如果发现有可用的 fd，则调到 5
+1. 如果没有，当前线程去 Sleep xx 秒 (schedle timeout 机制）
+1. xx 秒后自己醒来，或者状态变化的 fd 唤醒自己，调到 2 重新执行
+1. 结束循环，返回（可能因为 timeout 超时返回）
 
 可以看到，虽然 select 也会在内核态和用户态做遍历操作，但遍历时没有进行系统调用了，这会大大提高它的性能。
 
 select 的缺点：
 
 1. fds 默认大小 1024 限制，虽然可以通过修改宏定义甚至重新编译内核的方式提升这一限制，但是这样也会造成效率的降低
-2. select 返回时，会修改 fds，因此每次重新调用时需要初始化
-3. 得到返回结果后，需要遍历 fds 才能找到有变化的文件描述符，在文件描述符较多时效率不高
-4. 每次调用 select，所有的 fds 都需要在内核态和用户态进行拷贝
+1. select 返回时，会修改 fds，因此每次重新调用时需要初始化
+1. 得到返回结果后，需要遍历 fds 才能找到有变化的文件描述符，在文件描述符较多时效率不高
+1. 每次调用 select，所有的 fds 都需要在内核态和用户态进行拷贝
 
 这部分内容的实践需要用到 C 代码，感兴趣的可以查看这篇文章 [linux select 函数解析以及事例 - 知乎](https://zhuanlan.zhihu.com/p/57518857)，这里只简单理解其原理即可。
 
@@ -344,10 +344,10 @@ int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout
 水平触发是只要读缓冲区有数据，就会一直触发可读信号，而边缘触发仅仅在空变为非空的时候通知一次。举个例子：
 
 1. 读缓冲区刚开始是空的
-2. 读缓冲区写入 2KB 数据
-3. 水平触发和边缘触发模式此时都会发出可读信号
-4. 收到信号通知后，读取了 1kb 的数据，读缓冲区还剩余 1KB 数据
-5. 水平触发会再次进行通知，而边缘触发不会再进行通知
+1. 读缓冲区写入 2KB 数据
+1. 水平触发和边缘触发模式此时都会发出可读信号
+1. 收到信号通知后，读取了 1kb 的数据，读缓冲区还剩余 1KB 数据
+1. 水平触发会再次进行通知，而边缘触发不会再进行通知
 
 ```c
 //水平触发
@@ -370,7 +370,7 @@ while(true) {
 不论 BIO、NIO、多路复用，都围绕着两个问题进行设计：
 
 1. 创建太多线程带来的性能消耗
-2. 多次系统调用带来的性能消耗
+1. 多次系统调用带来的性能消耗
 
 下面来看看这些 IO 模型如何解决这两个问题：
 
@@ -396,10 +396,10 @@ while(true) {
 ## 参考内容
 
 1. [【并发】IO 多路复用 select/poll/epoll 介绍_哔哩哔哩 （゜ - ゜） つロ 干杯~-bilibili](https://www.bilibili.com/video/BV1qJ411w7du?t=11)
-2. UNIX 网络编程卷 1：套接字联网 API（第三版）- 122 页
-3. [linux select 函数解析以及事例 - 知乎](https://zhuanlan.zhihu.com/p/57518857)
-4. [Java NIO 浅析 - 美团技术团队](https://tech.meituan.com/2016/11/04/nio.html)
-5. [如何深刻理解 Reactor 和 Proactor？ - 知乎](https://www.zhihu.com/question/26943938/answer/68773398)
-6. [Linux IO 模式及 select、poll、epoll 详解 - 人云思云 - SegmentFault 思否](https://segmentfault.com/a/1190000003063859?utm_source=Weibo&utm_medium=shareLink&utm_campaign=socialShare&from=timeline&isappinstalled=0)
-7. [epoll 边缘触发与水平触发 - 掘金](https://juejin.im/post/6844903878685622285#heading-5)
-8. [Linux 惊群效应详解（最详细的了吧）_lyztyycode 的博客 - CSDN 博客_惊群效应](https://blog.csdn.net/lyztyycode/article/details/78648798)
+1. UNIX 网络编程卷 1：套接字联网 API（第三版）- 122 页
+1. [linux select 函数解析以及事例 - 知乎](https://zhuanlan.zhihu.com/p/57518857)
+1. [Java NIO 浅析 - 美团技术团队](https://tech.meituan.com/2016/11/04/nio.html)
+1. [如何深刻理解 Reactor 和 Proactor？ - 知乎](https://www.zhihu.com/question/26943938/answer/68773398)
+1. [Linux IO 模式及 select、poll、epoll 详解 - 人云思云 - SegmentFault 思否](https://segmentfault.com/a/1190000003063859?utm_source=Weibo&utm_medium=shareLink&utm_campaign=socialShare&from=timeline&isappinstalled=0)
+1. [epoll 边缘触发与水平触发 - 掘金](https://juejin.im/post/6844903878685622285#heading-5)
+1. [Linux 惊群效应详解（最详细的了吧）_lyztyycode 的博客 - CSDN 博客_惊群效应](https://blog.csdn.net/lyztyycode/article/details/78648798)
